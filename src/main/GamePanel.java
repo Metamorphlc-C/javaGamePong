@@ -14,6 +14,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
     
     public final int tileSize = originalTileSize * scale;
+    public final int pongLength = 24;
+    public final int pongHeight = 120;
     final int maxScreenCol = 16;
     final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;
@@ -23,8 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler(false);  // WASD for Player1
     KeyHandler keyH2 = new KeyHandler(true);  // Arrow keys for Player2
     Thread gameThread;
-    Player player = new Player(this, keyH);
-    Player player2 = new Player(this, keyH2);
+    Player player;
+    Player player2;
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
@@ -33,6 +35,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);    // Key listener for Player1
         this.addKeyListener(keyH2);   // Key listener for Player2
         this.setFocusable(true);
+        
+        // Initialize players
+        player = new Player(this, keyH);
+        player2 = new Player(this, keyH2);
     }
     
     public void startGameThread() {
@@ -44,8 +50,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         double drawInterval = 1000000000 / fps;
         double nextDrawTime = System.nanoTime() + drawInterval;
+        
         player.setDefaultValues();
-        player2.x = 300;
+        player2.setDefaultValues();
+        player2.x = 680;
         player2.y = 100;
         player2.speed = 4;
         
@@ -86,5 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
         
         // Draw Player2
         player2.draw(g2);  // Make sure Player2 is drawn
+        
+        g2.dispose();
     }
 }

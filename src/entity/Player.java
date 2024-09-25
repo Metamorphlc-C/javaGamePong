@@ -20,7 +20,7 @@ public class Player extends Entity{
 	}
 	public void setDefaultValues() {
 		
-		x=100;
+		x=20;
 		y=100;
 		speed = 4;
 	}
@@ -36,14 +36,14 @@ public class Player extends Entity{
     		System.out.println(y);
     		
     	}
-    	if (keyH.rightPressed == true) {
-    		x += speed;
-    		System.out.println(x);
-    	}
-    	if (keyH.leftPressed == true) {
-    		x -= speed;
-    		System.out.println(x);
-    	}
+//    	if (keyH.rightPressed == true) {
+//    		x += speed;
+//    		System.out.println(x);
+//    	}
+//    	if (keyH.leftPressed == true) {
+//    		x -= speed;
+//    		System.out.println(x);
+//    	}
     	
     	
     	//If Player Exits the Screen, down here
@@ -67,8 +67,6 @@ public class Player extends Entity{
 	        // Example drawing: a white square at (100, 100)
 	        g2.setColor(Color.white);
 	        
-	        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-	        
-	        g2.dispose();
+	        g2.fillRect(x, y, gp.pongLength, gp.pongHeight);
 	}
 }
