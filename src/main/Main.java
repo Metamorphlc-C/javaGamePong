@@ -1,6 +1,7 @@
 package main;
 
 import javax.swing.JFrame;
+import java.util.Random;
 
 public class Main extends javax.swing.JFrame {
 

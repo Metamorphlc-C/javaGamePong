@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Color;
+import entity.Ball;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -48,18 +49,19 @@ public class Player extends Entity{
     	
     	//If Player Exits the Screen, down here
     	if (x > gp.screenWidth) {
-    		x = 0;
+    		x = gp.screenWidth -1;
     	}
     	else if (x < 0) {
-    		x = gp.screenWidth-1;
+    		x = 1;
     	}
-    	if (y > gp.screenHeight) {
-    		y = 0;
+    	if (y > gp.screenHeight - 120) {
+    		y = gp.screenHeight - 120;
     	}
     	if (y < 0) {
-    		y = gp.screenHeight-1;
+    		y = 1;
     	}
 	}
+	
 	
 	public void draw(Graphics2D g2) {
 	        
