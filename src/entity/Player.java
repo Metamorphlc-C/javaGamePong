@@ -23,7 +23,7 @@ public class Player extends Entity{
 		
 		x=20;
 		y=100;
-		speed = 4;
+		speed = 8;
 	}
 	
 	public void update() {

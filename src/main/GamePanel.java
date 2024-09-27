@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -25,9 +26,10 @@ public class GamePanel extends JPanel implements Runnable {
     final int fps = 60;
     int player1Score = 0;
     int player2Score = 0;
+    public boolean isRunning = true;
     
-    KeyHandler keyH = new KeyHandler(false);  // WASD for Player1
-    KeyHandler keyH2 = new KeyHandler(true);  // Arrow keys for Player2
+    KeyHandler keyH = new KeyHandler(false, this);  // WASD for Player1
+    KeyHandler keyH2 = new KeyHandler(true, this);  // Arrow keys for Player2
     Thread gameThread;
     Player player;
     Player player2;
@@ -51,6 +53,11 @@ public class GamePanel extends JPanel implements Runnable {
             int hitPosition = ball.y - player2.y;
             ball.ySpeed = (hitPosition - pongHeight / 2) / 10;  // Change ySpeed dynamically
         }
+    }
+    
+    public void togglePause() {
+        isRunning = !isRunning; // Toggles the boolean state
+        System.out.println(isRunning ? "Game Resumed" : "Game Paused");
     }
     
     
@@ -82,10 +89,10 @@ public class GamePanel extends JPanel implements Runnable {
         player2.setDefaultValues();
         player2.x = 728;
         player2.y = 100;
-        player2.speed = 4;
+        player2.speed = 8;
         ball.setDefaultValues();
-        
         while (gameThread != null) {
+        	if (isRunning == true) {
             update();
             repaint();
            
@@ -104,6 +111,7 @@ public class GamePanel extends JPanel implements Runnable {
                 e.printStackTrace();
             }
         }
+        }
     }
 
     public void update() {
@@ -117,7 +125,7 @@ public class GamePanel extends JPanel implements Runnable {
         	player.setDefaultValues();
         	player2.x = 728;
         	player2.y = 100;
-        	player2.speed = 4;
+        	player2.speed = 8;
         	ball.setDefaultValues();
         	
         	
@@ -129,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
         	player.setDefaultValues();
         	player2.x = 728;
         	player2.y = 100;
-        	player2.speed = 4;
+        	player2.speed = 8;
         	ball.setDefaultValues();
         	ball.direction = 'R';
         	
@@ -142,13 +150,25 @@ public class GamePanel extends JPanel implements Runnable {
         
         Graphics2D g2 = (Graphics2D) g;
         
+        // Set font and color for the score
+        g2.setFont(new Font("Arial", Font.BOLD, 24));
+        g2.setColor(Color.WHITE);
+        
         // Draw Player1
         player.draw(g2);
         
         // Draw Player2
         player2.draw(g2);  // Make sure Player2 is drawn
         
+        // Draw the ball
         ball.draw(g2);
+        
+        // Draw the scores at the top of the screen
+        g2.drawString("Player 1: " + player1Score, 50, 30); // Player 1 score at the top-left
+        g2.drawString("Player 2: " + player2Score, screenWidth - 200, 30); // Player 2 score at the top-right
+        if (player1Score == 5 || player2Score == 5) {
+        	g2.drawString("Game Over!", 300, 300);
+        }
         
         g2.dispose();
     }

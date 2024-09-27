@@ -7,10 +7,12 @@ public class KeyHandler implements KeyListener {
 
     private boolean useArrowKeys; // Determines which key set to use
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    private GamePanel gamePanel; // Reference to the GamePanel
 
-    // Constructor to decide which key set to use
-    public KeyHandler(boolean useArrowKeys) {
+    // Constructor to decide which key set to use and pass the GamePanel
+    public KeyHandler(boolean useArrowKeys, GamePanel gamePanel) {
         this.useArrowKeys = useArrowKeys;
+        this.gamePanel = gamePanel;
     }
 
     @Override
@@ -51,6 +53,10 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
             }
         }
+        if (code == KeyEvent.VK_ESCAPE) {
+            // Toggle the game's running state
+            gamePanel.togglePause();
+        }
     }
 
     @Override
@@ -58,7 +64,6 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         if (useArrowKeys) {
-            // Use arrow keys for movement
             if (code == KeyEvent.VK_UP) {
                 upPressed = false;
             }
@@ -72,7 +77,6 @@ public class KeyHandler implements KeyListener {
                 rightPressed = false;
             }
         } else {
-            // Use WASD keys for movement
             if (code == KeyEvent.VK_W) {
                 upPressed = false;
             }

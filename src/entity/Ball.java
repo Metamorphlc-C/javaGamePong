@@ -21,7 +21,7 @@ public class Ball extends Entity {
     public void setDefaultValues() {
         x = 50; // Starting X position
         y = 238; // Starting Y position
-        speed = 6; // X speed
+        speed = 12; // X speed
         ySpeed = 4; // Y speed
     }
 
